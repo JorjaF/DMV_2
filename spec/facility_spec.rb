@@ -1,4 +1,5 @@
 require 'spec_helper'
+require './lib/facility'
 
 RSpec.describe Facility do
   before(:each) do
@@ -25,11 +26,39 @@ RSpec.describe Facility do
   end
 
   describe '#has service?' do
-    it 'can register a vehicle' do
+    it 'stars with no register vehicle' do
       cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
       @facility.add_service('vehicle registration')
       expect(cruz.registration_date).to eq(nil)
-      expect(@facility_1.registered_vehicles).to eq([])
+      expect(@facility.registered_vehicles).to eq([])
+    end
+  end
+
+  describe '#collected fees' do
+    it 'starts with no collected fees' do
+      expect(@facility.collected_fees).to eq(0)
+    end
+  end
+
+  describe '#register vehicle' do
+    it 'can register a vehicle' do
+      cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
+      @facility.add_service('vehicle registration')
+      @facility.register_vehicle(cruz)
+      
+      expect(cruz.registration_date).to eq(Date.today)
+      expect(@facility.registered_vehicles).to eq([cruz])
+      expect(@facility.collected_fees).to eq(100)
+    end
+  end
+
+  describe 'add plate type' do
+    it 'can add plate type' do
+      cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
+      @facility.add_service('vehicle registration')
+      @facility.register_vehicle(cruz)
+
+      expect(@facility.plate_type(cruz)).to eq(:regular)
     end
   end
 end
