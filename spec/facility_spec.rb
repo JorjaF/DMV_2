@@ -42,23 +42,54 @@ RSpec.describe Facility do
 
   describe '#register vehicle' do
     it 'can register a vehicle' do
+      facility_2 = Facility.new({name: 'Ashland DMV Office', address: '600 Tolman Creek Rd Ashland OR 97520', phone: '541-776-6092' })
       cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
+      bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev} )
+      camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice} )
+
       @facility.add_service('vehicle registration')
+
+      expect(cruz.registration_date).to eq(nil)
+      expect(@facility.registered_vehicles).to eq([])
+      expect(@facility.collected_fees).to eq(0)
+
       @facility.register_vehicle(cruz)
       
       expect(cruz.registration_date).to eq(Date.today)
       expect(@facility.registered_vehicles).to eq([cruz])
       expect(@facility.collected_fees).to eq(100)
+
+      @facility.register_vehicle(camaro)
+
+      expect(camaro.registration_date).to eq(Date.today)
+
+      @facility.register_vehicle(bolt)
+
+      expect(bolt.registration_date).to eq(Date.today)
+      expect(@facility.registered_vehicles).to eq([cruz, camaro, bolt])
+      expect(@facility.collected_fees).to eq(325)
+
+      expect(facility_2.registered_vehicles).to eq([])
+      expect(facility_2.services).to eq([])
+      expect(facility_2.register_vehicle(bolt)).to eq(nil)
+      expect(facility_2.collected_fees).to eq(0)
+
     end
   end
 
   describe 'add plate type' do
     it 'can add plate type' do
       cruz = Vehicle.new({vin: '123456789abcdefgh', year: 2012, make: 'Chevrolet', model: 'Cruz', engine: :ice} )
+      camaro = Vehicle.new({vin: '1a2b3c4d5e6f', year: 1969, make: 'Chevrolet', model: 'Camaro', engine: :ice} )
+      bolt = Vehicle.new({vin: '987654321abcdefgh', year: 2019, make: 'Chevrolet', model: 'Bolt', engine: :ev} )  
       @facility.add_service('vehicle registration')
       @facility.register_vehicle(cruz)
+      @facility.plate_type(camaro)
+      @facility.plate_type(bolt)
 
       expect(@facility.plate_type(cruz)).to eq(:regular)
-    end
+      expect(@facility.plate_type(camaro)).to eq(:antique)
+      expect(@facility.plate_type(bolt)).to eq(:ev)
+   end
   end
 end
