@@ -47,4 +47,17 @@ class Facility
       :regular
     end
   end
+
+  def adminster_written_test(registrant)
+    if services.include?('written test') == false
+      return false
+    end
+    if @permit == false
+      return false
+    end
+    if registrant.age < 16
+      return false
+    end
+    registrant.license_data[:written] = true
+  end
 end
