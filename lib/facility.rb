@@ -47,4 +47,40 @@ class Facility
       :regular
     end
   end
+
+  def adminster_written_test(registrant)
+    if services.include?('written test') == false
+      return false
+    end
+    if registrant.age < 16
+      return false
+    end
+    if registrant.permit? == false
+      return false
+    end
+    registrant.license_data[:written] = true
+  end
+
+  def administer_road_test(registrant)
+    if services.include?('road test') == false
+      return false
+    end
+    if registrant.age < 16
+      return false
+    end
+    if registrant.license_data[:written] == false
+      return false
+    end
+    registrant.license_data[:license] = true
+  end
+
+  def renew_license(registrant)
+    if services.include?('renew license') == false
+      return false
+    end
+    if registrant.license_data[:license] == false
+      return false
+    end
+    registrant.license_data[:renewed] = true
+  end
 end
