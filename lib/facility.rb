@@ -52,12 +52,25 @@ class Facility
     if services.include?('written test') == false
       return false
     end
-    if @permit == false
+    if registrant.age < 16
+      return false
+    end
+    if registrant.permit? == false
+      return false
+    end
+    registrant.license_data[:written] = true
+  end
+
+  def administer_road_test(registrant)
+    if services.include?('road test') == false
       return false
     end
     if registrant.age < 16
       return false
     end
-    registrant.license_data[:written] = true
+    if registrant.license_data[:written] == false
+      return false
+    end
+    registrant.license_data[:license] = true
   end
 end
