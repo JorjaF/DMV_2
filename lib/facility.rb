@@ -73,4 +73,14 @@ class Facility
     end
     registrant.license_data[:license] = true
   end
+
+  def renew_license(registrant)
+    if services.include?('renew license') == false
+      return false
+    end
+    if registrant.license_data[:license] == false
+      return false
+    end
+    registrant.license_data[:renewed] = true
+  end
 end

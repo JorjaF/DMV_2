@@ -156,13 +156,46 @@ RSpec.describe Facility do
       expect(@facility.administer_road_test(registrant_1)).to eq(false)
 
       @facility.add_service('road test')
+      @facility.adminster_written_test(registrant_1)
       @facility.administer_road_test(registrant_1)
             
       expect(@facility.administer_road_test(registrant_1)).to eq(true)
       expect(registrant_1.license_data).to eq({:written=>true, :license=>true, :renewed=>false})
 
+      @facility.adminster_written_test(registrant_2)
+      @facility.administer_road_test(registrant_2)
+
       expect(@facility.administer_road_test(registrant_2)).to eq(true)
       expect(registrant_2.license_data).to eq({:written=>true, :license=>true, :renewed=>false})
     end
   end  
+
+  describe 'renewing a license' do
+    it 'can renew a license' do
+      registrant_1 = Registrant.new('Bruce', 18, true )
+      registrant_2 = Registrant.new('Penny', 16 )
+      registrant_3 = Registrant.new('Tucker', 15 )
+      expect(@facility.renew_license(registrant_1)).to eq(false)
+      
+      @facility.add_service('permit test')
+      @facility.add_service('written test')
+      @facility.add_service('road test')
+      @facility.add_service('renew license')
+
+      @facility.adminster_written_test(registrant_1)
+      @facility.administer_road_test(registrant_1)
+      @facility.renew_license(registrant_1)
+
+      expect(@facility.renew_license(registrant_1)).to eq(true)
+      expect(@facility.renew_license(registrant_3)).to eq(false)
+
+      registrant_2.earn_permit
+      @facility.adminster_written_test(registrant_2)
+      @facility.administer_road_test(registrant_2)
+      @facility.renew_license(registrant_2)
+
+      expect(@facility.renew_license(registrant_2)).to eq(true)
+
+    end
+  end
 end 
