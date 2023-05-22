@@ -5,7 +5,7 @@ class FacilityFactory
     facility[:name] = facility.delete(:title)
     facility[:address] = parse_or_address(facility.delete(:location_1))
     facility[:phone] = facility.delete(:phone_number)
-   Facility.new(facility)
+    Facility.new(facility)
   end
 
   def parse_or_address(raw_address)
@@ -27,13 +27,5 @@ class FacilityFactory
     "#{raw_address[:street_address_line_1]}, #{raw_address[:city]}, #{raw_address[:state]} #{raw_address[:zip_code]}"
   end
 
-  def create_mo_facility(facility)
-    facility[:address] = parse_mo_address(facility)
-    facility = facility.slice(:name, :address, :phone)
-    Facility.new(facility)
-  end
 
-  def parse_mo_address(raw_address)
-    "#{raw_address[:address1]}, #{raw_address[:city]}, #{raw_address[:state]} #{raw_address[:zipcode]}"
-  end
 end
