@@ -27,5 +27,13 @@ class FacilityFactory
     "#{raw_address[:street_address_line_1]}, #{raw_address[:city]}, #{raw_address[:state]} #{raw_address[:zip_code]}"
   end
 
+  def create_mo_facility(facility)
+    facility[:address] = parse_mo_address(facility)
+    facility = facility.slice(:name, :address, :phone)
+    Facility.new(facility)
+  end
 
+  def parse_mo_address(raw_address)
+    "#{raw_address[:address1]}, #{raw_address[:city]}, #{raw_address[:state]} #{raw_address[:zipcode]}"
+  end
 end
