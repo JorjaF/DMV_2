@@ -18,5 +18,7 @@ class Registrant
 
   def earn_permit
     @permit = true
+    #this is great. One thing that you could do would be to add what is called a guard clause.
+    #@permit = true if @age >= 15
   end
 end

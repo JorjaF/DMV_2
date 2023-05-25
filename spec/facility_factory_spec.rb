@@ -65,3 +65,20 @@ RSpec.describe FacilityFactory do
     expect(address).to eq("3164 TELEGRAPH ROAD, ST LOUIS, MO 63125")
   end
 end
+
+# Nice job testing everything. See my notes in your facility_factory class. You could have a single method
+# called create_facilities that takes an argument of whatever facility. So your test would look something like:
+# factory = FacilityFactory.new
+# oregon_facilities = DmvDataService.new.or_dmv_office_locations
+# expect(factory.create_facilities(oregon_facilities)).to be_an(Array)
+
+# factory = FacilityFactory.new
+# new_york_facilities = DmvDataService.new.ny_dmv_office_locations
+# expect(factory.create_facilities(new_york_facilities)).to be_an(Array)
+
+# factory = FacilityFactory.new
+# missouri_facilities = DmvDataService.new.mo_dmv_office_locations
+# expect(factory.create_facilities(missouri_facilities)).to be_an(Array)
+
+# each of those would be in their own it block
+# and you would still test all of your helpers. I hope this makes sense

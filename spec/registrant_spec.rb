@@ -21,8 +21,9 @@ require 'spec_helper'
       registrant_1 = Registrant.new('Bruce', 18, true )
       registrant_2 = Registrant.new('Penny', 15 )
       expect(registrant_1.license_data).to eq({:written=>false, :license=>false, :renewed=>false})
-      
+      #get rid of this blank space
     end
+    #add a space here
     it "can earn a permit" do
       registrant_1 = Registrant.new('Bruce', 18, true )
       registrant_2 = Registrant.new('Penny', 15 )
@@ -35,5 +36,5 @@ require 'spec_helper'
       expect(registrant_2.permit?).to eq(true)
     end
   end
-
+  #these tests look good
   # added this to have a PR for grading purposes

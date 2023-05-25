@@ -15,7 +15,7 @@ class Vehicle
     @model = vehicle_details[:model]
     @engine = vehicle_details[:engine]
     @registration_date = nil
-
+    #get rid of this space
   end
 
   def antique?
@@ -25,7 +25,7 @@ class Vehicle
   def electric_vehicle?
     @engine == :ev
   end
-
+  #what are you doing with this method below
   def registration_date=(date)
     @registration_date = date
   end

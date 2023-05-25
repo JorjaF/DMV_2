@@ -37,3 +37,15 @@ class FacilityFactory
     "#{raw_address[:address1]}, #{raw_address[:city]}, #{raw_address[:state]} #{raw_address[:zipcode]}"
   end
 end
+# Nice job creating your helper methods in here. Very similar to our vehicle_factory I think we could create a single
+# method called create_facilities and pass it whatever api data we want. Something like
+# def create_facilities(state_data)
+#   state_data.map do |facility|
+#     facility_info = format_facility_data(facility)
+#     Facility.new({
+#       name: facility_info[:name],
+#       address: facility_info[:address],
+#       phone: facility_info[:phone]
+#     })
+#   end
+# so this one method would take in the helpers that you created. Makes your code more DRY
