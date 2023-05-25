@@ -4,6 +4,7 @@ RSpec.describe Facility do
   before(:each) do
     @facility = Facility.new({name: 'Albany DMV Office', address: '2242 Santiam Hwy SE Albany OR 97321', phone: '541-967-2014' })
   end
+  #add a space here
   describe '#initialize' do
     it 'can initialize' do
       expect(@facility).to be_an_instance_of(Facility)
@@ -72,9 +73,11 @@ RSpec.describe Facility do
       expect(facility_2.services).to eq([])
       expect(facility_2.register_vehicle(bolt)).to eq(nil)
       expect(facility_2.collected_fees).to eq(0)
-
+      #get rid of this space
     end
   end
+  #you created a helper method called add_fee(vehicle)
+  #so you will need to have a unit test for this
 
   describe 'add plate type' do
     it 'can add plate type' do
@@ -194,7 +197,9 @@ RSpec.describe Facility do
       @facility.renew_license(registrant_2)
 
       expect(@facility.renew_license(registrant_2)).to eq(true)
-
+      #get rid of this space
     end
   end
 end 
+# These tests look good. Just make sure to unit test any helper methods that you create as well. 
+# Specifically talkingabout add_fee and plate_type.

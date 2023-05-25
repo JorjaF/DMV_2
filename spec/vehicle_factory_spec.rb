@@ -28,4 +28,5 @@ RSpec.describe VehicleFactory do
     vehicles = vehicle_factory.create_vehicles(wa_ev_registrations)
     expect(vehicles.first).to be_an_instance_of(Vehicle)
   end
+  #this test is great and is very dynamic because then we can pass whatever api data we need like on line 27
 end

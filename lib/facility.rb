@@ -27,7 +27,7 @@ class Facility
       @registered_vehicles << vehicle
       @collected_fees += add_fee(vehicle)
   end
-
+  #nice helper here, make sure that you unit test this
   def add_fee(vehicle)
     if vehicle.antique?
       25
@@ -49,6 +49,12 @@ class Facility
   end
 
   def adminster_written_test(registrant)
+    #I think you could condense this to something like this
+    # if @services.include?('Written Test') && registrant.age >= 16 && registrant.permit == true
+    #   registrant.license_data[:written] = true
+    # else
+    #   false 
+    # end
     if services.include?('written test') == false
       return false
     end
@@ -62,6 +68,12 @@ class Facility
   end
 
   def administer_road_test(registrant)
+    #something like this
+    # if @services.include?('Road Test') && registrant.age >= 16 && registrant.permit == true
+    #   registrant.license_data[:license] = true
+    # else
+    #   false 
+    # end
     if services.include?('road test') == false
       return false
     end
@@ -75,6 +87,12 @@ class Facility
   end
 
   def renew_license(registrant)
+    #something like this
+    # if @services.include?('Renew Test') && registrant.age >= 16 && registrant.permit == true
+    #   registrant.license_data[:renewed] = true
+    # else
+    #   false 
+    # end
     if services.include?('renew license') == false
       return false
     end
@@ -84,3 +102,5 @@ class Facility
     registrant.license_data[:renewed] = true
   end
 end
+# Think of ways that you could DRY up the methods above
+# Could you make a helper method that takes care of some of the redundancy
